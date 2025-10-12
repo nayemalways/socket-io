@@ -9,7 +9,6 @@ export const baseRoute = async  (req, res) => {
 
     // Signup
 export const createUser =  async (req, res) => {
-        console.log(req.body)
         const user = await User.create(req.body);
         res.status(201).json(user);
 }
