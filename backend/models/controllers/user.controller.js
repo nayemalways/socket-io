@@ -7,6 +7,24 @@ export const baseRoute = async  (req, res) => {
     res.json(users);
 }
 
+
+export const getActiveUsers = async (req, res) => {
+    try {
+        const activeUsers = await User.find({ isOnline: true });
+        res.json({
+            success: true,
+            data: activeUsers
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch active users"
+        });
+    }
+};
+
+
     // Signup
 export const createUser =  async (req, res) => {
         const user = await User.create(req.body);

@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
      socket.on("user_join", async (userId) => {
         onlineUsers.set(userId, socket.id);
 
-        await User.findByIdAndUpdate(userId, { sockedId: socket.id, isOnline: true});
+        await User.findByIdAndUpdate(userId, { socketId: socket.id, isOnline: true});
         io.emit("user_status", {userId, isOnline: true});
 
      });

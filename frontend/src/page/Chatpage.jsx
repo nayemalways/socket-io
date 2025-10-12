@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { socket } from '../socket/socket';
+import API from '../utils/api';
 
 
 export const Chatpage = () => {
@@ -9,8 +10,9 @@ export const Chatpage = () => {
    const [message, setMessage] = useState("");
    const [messages, setMessages] = useState([]);
    const [receiverId, setReceiverId] = useState("");
+   const [activeUsers, setActiveUsers] = useState([]);
 
-   
+  
 
   useEffect(() => {
     socket.auth.token = localStorage.getItem("token");
@@ -26,6 +28,23 @@ export const Chatpage = () => {
         socket.disconnect();
     }
   }, []);
+
+
+ useEffect(() => {
+  const fetchActiveUsers = async () => {
+    try {
+      const res = await API.get("/active_users");
+      setActiveUsers(res.data);
+    } catch (err) {
+      console.error("Failed to fetch active users:", err);
+    }
+  };
+
+  fetchActiveUsers();
+}, []);
+
+
+  console.log(activeUsers);
   
 
   const sendMessage = () => {
