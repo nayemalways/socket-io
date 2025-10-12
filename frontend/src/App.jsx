@@ -1,11 +1,25 @@
-import React from 'react';
-import Chatpage from './page/Chatpage';
+ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Signup } from "./page/Signup";
+import { Login } from "./page/Login";
+import { Chatpage } from "./page/Chatpage";
+ 
+ 
+
+const token = localStorage.getItem("token");
 
 const App = () => {
   return (
-    <div>
-      <Chatpage currentUser={{_id: "34543534534"}} />
-    </div>
+     <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/chat"
+          element={token ? <Chatpage /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
