@@ -4,7 +4,7 @@ import { Login } from "./page/Login";
 import { Chatpage } from "./page/Chatpage";
  
  
-
+// Access server token
 const token = localStorage.getItem("token");
 
 const App = () => {
